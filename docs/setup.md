@@ -42,7 +42,8 @@ This is a simplified version of [Fastly's instructions](https://docs.fastly.com/
 }
 ```
 
-- Name: WriteAccessToRubyforgeRedirectLogsS3Bucket
+- Name: WriteAccessToRubyforgeOrgFastlyLogsS3Bucket
+- Description: Grants write access to the `${REQUEST_LOGS_S3_BUCKET}` S3 bucket. Intended to be used by an IAM Role that grants the Fastly AWS account access to our account.
 
 ### Role
 
@@ -55,7 +56,8 @@ This is a simplified version of [Fastly's instructions](https://docs.fastly.com/
 - Click "Next"
 - Check the "WriteAccessToRubyforgeRedirectLogsS3Bucket" Policy created in the previous step
 - Click "Next"
-- Role name: "FastlyStreamingLogs"
+- Role name: "RubyCentralFastlyLogStreaming"
+- Role description: Allows Fastly AWS account to stream logs from Ruby Central's Fastly account.
 - Click "Create role"
 - Find and click on the new role in the list
 - Make a note of the ARN (`${REQUEST_LOGS_ROLE_ARN}`) as we need this when setting up Log Streaming in Fastly
