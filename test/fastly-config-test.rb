@@ -24,6 +24,12 @@ class TestFastlyConfiguration < Minitest::Test
     assert_equal "https://rubygems.org", response['Location']
   end
 
+  def test_rspec_subdomain
+    response = request "http://rspec.#{DOMAIN}"
+    assert_equal '301', response.code
+    assert_equal "https://rspec.info", response['Location']
+  end
+
   def test_mocha_subdomain
     response = request "http://mocha.#{DOMAIN}"
     assert_equal '301', response.code
