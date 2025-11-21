@@ -28,6 +28,10 @@ EXPECTED_SUBDOMAIN_REDIRECTS = {
   'wxruby'       => 'https://github.com/mcorino/wxRuby3/wiki'
 }
 
+EXPECTED_PROJECT_REDIRECTS = {
+  'mocha' => 'https://github.com/freerange/mocha'
+}
+
 class TestFastlyConfiguration < Minitest::Test
   def test_everything_else_is_404
     response = request "http://made-up-subdomain.#{DOMAIN}"
@@ -49,10 +53,12 @@ class TestFastlyConfiguration < Minitest::Test
     end
   end
 
-  def test_mocha_project
-    response = request "http://www.#{DOMAIN}/projects/mocha/"
-    assert_equal '301', response.code
-    assert_equal 'https://github.com/freerange/mocha', response['Location']
+  EXPECTED_PROJECT_REDIRECTS.each do |project, target_domain|
+    define_method "test_#{project}_project" do
+      response = request "http://www.#{DOMAIN}/projects/#{project}/"
+      assert_equal '301', response.code
+      assert_equal target_domain, response['Location']
+    end
   end
 
   private
