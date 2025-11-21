@@ -1,83 +1,22 @@
-if (req.http.host ~ "^sequel.") {
-  error 600 "https://sequel.jeremyevans.net";
-}
+if (req.http.host ~ "^sequel.")       { error 600 "https://sequel.jeremyevans.net"; }
+if (req.http.host ~ "^rack.")         { error 600 "https://rack.github.io/rack/"; }
+if (req.http.host ~ "^rake.")         { error 600 "https://ruby.github.io/rake/"; }
+if (req.http.host ~ "^wxruby.")       { error 600 "https://github.com/mcorino/wxRuby3/wiki"; }
+if (req.http.host ~ "^amazon.")       { error 600 "https://github.com/marcel/aws-s3"; }
+if (req.http.host ~ "^god.")          { error 600 "http://godrb.com"; }
+if (req.http.host ~ "^juggernaut.")   { error 600 "https://blog.alexmaccaw.com/killing-a-library/"; }
+if (req.http.host ~ "^webgen.")       { error 600 "https://webgen.gettalong.org"; }
+if (req.http.host ~ "^maruku.")       { error 600 "https://benhollis.net/blog/2013/10/20/maruku-is-obsolete/"; }
+if (req.http.host ~ "^mechanize.")    { error 600 "https://www.rubydoc.info/gems/mechanize/"; }
+if (req.http.host ~ "^rmagick.")      { error 600 "https://rmagick.github.io"; }
+if (req.http.host ~ "^kramdown.")     { error 600 "https://kramdown.gettalong.org"; }
+if (req.http.host ~ "^backgroundrb.") { error 600 "https://github.com/gnufied/backgroundrb"; }
+if (req.http.host ~ "^wtr.")          { error 600 "http://watir.com"; }
+if (req.http.host ~ "^geokit.")       { error 600 "https://github.com/geokit/geokit"; }
+if (req.http.host ~ "^libxml.")       { error 600 "https://xml4r.github.io/libxml-ruby/"; }
+if (req.http.host ~ "^celerity.")     { error 600 "https://github.com/jarib/celerity"; }
+if (req.http.host ~ "^gems.")         { error 600 "https://rubygems.org"; }
+if (req.http.host ~ "^rspec.")        { error 600 "https://rspec.info"; }
+if (req.http.host ~ "^mocha.")        { error 600 "https://github.com/freerange/mocha"; }
 
-if (req.http.host ~ "^rack.") {
-  error 600 "https://rack.github.io/rack/";
-}
-
-if (req.http.host ~ "^rake.") {
-  error 600 "https://ruby.github.io/rake/";
-}
-
-if (req.http.host ~ "^wxruby.") {
-  error 600 "https://github.com/mcorino/wxRuby3/wiki";
-}
-
-if (req.http.host ~ "^amazon.") {
-  error 600 "https://github.com/marcel/aws-s3";
-}
-
-if (req.http.host ~ "^god.") {
-  error 600 "http://godrb.com";
-}
-
-if (req.http.host ~ "^juggernaut.") {
-  error 600 "https://blog.alexmaccaw.com/killing-a-library/";
-}
-
-if (req.http.host ~ "^webgen.") {
-  error 600 "https://webgen.gettalong.org";
-}
-
-if (req.http.host ~ "^maruku.") {
-  error 600 "https://benhollis.net/blog/2013/10/20/maruku-is-obsolete/";
-}
-
-if (req.http.host ~ "^mechanize.") {
-  error 600 "https://www.rubydoc.info/gems/mechanize/";
-}
-
-if (req.http.host ~ "^rmagick.") {
-  error 600 "https://rmagick.github.io";
-}
-
-if (req.http.host ~ "^kramdown.") {
-  error 600 "https://kramdown.gettalong.org";
-}
-
-if (req.http.host ~ "^backgroundrb.") {
-  error 600 "https://github.com/gnufied/backgroundrb";
-}
-
-if (req.http.host ~ "^wtr.") {
-  error 600 "http://watir.com";
-}
-
-if (req.http.host ~ "^geokit.") {
-  error 600 "https://github.com/geokit/geokit";
-}
-
-if (req.http.host ~ "^libxml.") {
-  error 600 "https://xml4r.github.io/libxml-ruby/";
-}
-
-if (req.http.host ~ "^celerity.") {
-  error 600 "https://github.com/jarib/celerity";
-}
-
-if (req.http.host ~ "^gems.") {
-  error 600 "https://rubygems.org";
-}
-
-if (req.http.host ~ "^rspec.") {
-  error 600 "https://rspec.info";
-}
-
-if (req.http.host ~ "^mocha.") {
-  error 600 "https://github.com/freerange/mocha";
-}
-
-if (req.url.path ~ "^/projects/mocha/") {
-  error 600 "https://github.com/freerange/mocha";
-}
+if (req.url.path ~ "^/projects/mocha/") { error 600 "https://github.com/freerange/mocha"; }
