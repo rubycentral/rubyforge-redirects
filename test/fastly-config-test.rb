@@ -3,7 +3,7 @@ require "minitest/autorun"
 
 DOMAIN = ENV.fetch('DOMAIN', 'rubyforge.org')
 
-puts "Running tests against #{DOMAIN}"
+puts "\n*** Running tests against #{DOMAIN} ***\n\n"
 
 class TestFastlyConfiguration < Minitest::Test
   def test_everything_else_is_404
