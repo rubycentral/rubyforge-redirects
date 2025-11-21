@@ -12,13 +12,13 @@ class TestFastlyConfiguration < Minitest::Test
     assert_match 'https://github.com/rubycentral/rubyforge-redirects', response.body
   end
 
-  def test_apex
+  def test_apex_domain
     response = request "http://#{DOMAIN}"
     assert_equal '301', response.code
     assert_equal "http://www.#{DOMAIN}/", response['Location']
   end
 
-  def test_gems
+  def test_gems_subdomain
     response = request "http://gems.#{DOMAIN}"
     assert_equal '301', response.code
     assert_equal "https://rubygems.org", response['Location']
