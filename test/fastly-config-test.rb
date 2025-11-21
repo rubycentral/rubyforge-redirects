@@ -9,7 +9,7 @@ class TestFastlyConfiguration < Minitest::Test
   def test_everything_else_is_404
     response = request "http://made-up-subdomain.#{DOMAIN}"
     assert_equal '404', response.code
-    assert_match 'https://github.com/freerange/rubyforge-redirects', response.body
+    assert_match 'https://github.com/rubycentral/rubyforge-redirects', response.body
   end
 
   def test_apex
