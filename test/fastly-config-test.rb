@@ -51,6 +51,11 @@ class TestFastlyConfiguration < Minitest::Test
       assert_equal '301', response.code
       assert_equal target_domain, response['Location']
     end
+
+    define_method "test_#{subdomain}-made-up_subdomain" do
+      response = request "http://#{subdomain}-made-up.#{DOMAIN}"
+      assert_equal '404', response.code
+    end
   end
 
   EXPECTED_PROJECT_REDIRECTS.each do |project, target_domain|
