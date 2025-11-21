@@ -5,6 +5,29 @@ DOMAIN = ENV.fetch('DOMAIN', 'rubyforge.org')
 
 puts "\n*** Running tests against #{DOMAIN} ***\n\n"
 
+EXPECTED_SUBDOMAIN_REDIRECTS = {
+  'amazon'       => 'https://github.com/marcel/aws-s3',
+  'backgroundrb' => 'https://github.com/gnufied/backgroundrb',
+  'celerity'     => 'https://github.com/jarib/celerity',
+  'gems'         => 'https://rubygems.org',
+  'geokit'       => 'https://github.com/geokit/geokit',
+  'god'          => 'http://godrb.com',
+  'juggernaut'   => 'https://blog.alexmaccaw.com/killing-a-library/',
+  'kramdown'     => 'https://kramdown.gettalong.org',
+  'libxml'       => 'https://xml4r.github.io/libxml-ruby/',
+  'maruku'       => 'https://benhollis.net/blog/2013/10/20/maruku-is-obsolete/',
+  'mechanize'    => 'https://www.rubydoc.info/gems/mechanize/',
+  'mocha'        => 'https://github.com/freerange/mocha',
+  'rack'         => 'https://rack.github.io/rack/',
+  'rake'         => 'https://ruby.github.io/rake/',
+  'rmagick'      => 'https://rmagick.github.io',
+  'rspec'        => 'https://rspec.info',
+  'sequel'       => 'https://sequel.jeremyevans.net',
+  'webgen'       => 'https://webgen.gettalong.org',
+  'wtr'          => 'http://watir.com',
+  'wxruby'       => 'https://github.com/mcorino/wxRuby3/wiki'
+}
+
 class TestFastlyConfiguration < Minitest::Test
   def test_everything_else_is_404
     response = request "http://made-up-subdomain.#{DOMAIN}"
@@ -18,124 +41,12 @@ class TestFastlyConfiguration < Minitest::Test
     assert_equal "http://www.#{DOMAIN}/", response['Location']
   end
 
-  def test_sequel
-    response = request "http://sequel.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "https://sequel.jeremyevans.net", response['Location']
-  end
-
-  def test_rack
-    response = request "http://rack.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "https://rack.github.io/rack/", response['Location']
-  end
-
-  def test_rake
-    response = request "http://rake.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "https://ruby.github.io/rake/", response['Location']
-  end
-
-  def test_wxruby
-    response = request "http://wxruby.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "https://github.com/mcorino/wxRuby3/wiki", response['Location']
-  end
-
-  def test_amazon
-    response = request "http://amazon.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "https://github.com/marcel/aws-s3", response['Location']
-  end
-
-  def test_god
-    response = request "http://god.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "http://godrb.com", response['Location']
-  end
-
-  def test_juggernaut
-    response = request "http://juggernaut.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "https://blog.alexmaccaw.com/killing-a-library/", response['Location']
-  end
-
-  def test_webgen
-    response = request "http://webgen.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "https://webgen.gettalong.org", response['Location']
-  end
-
-  def test_maruku
-    response = request "http://maruku.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "https://benhollis.net/blog/2013/10/20/maruku-is-obsolete/", response['Location']
-  end
-
-  def test_mechanize
-    response = request "http://mechanize.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "https://www.rubydoc.info/gems/mechanize/", response['Location']
-  end
-
-  def test_rmagick
-    response = request "http://rmagick.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "https://rmagick.github.io", response['Location']
-  end
-
-  def test_kramdown
-    response = request "http://kramdown.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "https://kramdown.gettalong.org", response['Location']
-  end
-
-  def test_backgroundrb
-    response = request "http://backgroundrb.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "https://github.com/gnufied/backgroundrb", response['Location']
-  end
-
-  def test_wtr
-    response = request "http://wtr.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "http://watir.com", response['Location']
-  end
-
-  def test_geokit
-    response = request "http://geokit.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "https://github.com/geokit/geokit", response['Location']
-  end
-
-  def test_libxml
-    response = request "http://libxml.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "https://xml4r.github.io/libxml-ruby/", response['Location']
-  end
-
-  def test_celerity
-    response = request "http://celerity.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "https://github.com/jarib/celerity", response['Location']
-  end
-
-  def test_gems_subdomain
-    response = request "http://gems.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "https://rubygems.org", response['Location']
-  end
-
-  def test_rspec_subdomain
-    response = request "http://rspec.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal "https://rspec.info", response['Location']
-  end
-
-  def test_mocha_subdomain
-    response = request "http://mocha.#{DOMAIN}"
-    assert_equal '301', response.code
-    assert_equal 'https://github.com/freerange/mocha', response['Location']
+  EXPECTED_SUBDOMAIN_REDIRECTS.each do |subdomain, target_domain|
+    define_method "test_#{subdomain}_subdomain" do
+      response = request "http://#{subdomain}.#{DOMAIN}"
+      assert_equal '301', response.code
+      assert_equal target_domain, response['Location']
+    end
   end
 
   def test_mocha_project
