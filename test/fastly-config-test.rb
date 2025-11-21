@@ -23,13 +23,15 @@ EXPECTED_SUBDOMAIN_REDIRECTS = {
   'rmagick'      => 'https://rmagick.github.io',
   'rspec'        => 'https://rspec.info',
   'sequel'       => 'https://sequel.jeremyevans.net',
+  'sup'          => 'https://supmua.dev',
   'webgen'       => 'https://webgen.gettalong.org',
   'wtr'          => 'http://watir.com',
   'wxruby'       => 'https://github.com/mcorino/wxRuby3/wiki'
 }
 
 EXPECTED_PROJECT_REDIRECTS = {
-  'mocha' => 'https://github.com/freerange/mocha'
+  'mocha' => 'https://github.com/freerange/mocha',
+  'sup'   => 'https://supmua.dev'
 }
 
 class TestFastlyConfiguration < Minitest::Test
