@@ -25,6 +25,17 @@ bundle
 ruby test/*.rb
 ```
 
+The tests run against rubyforge.org by default but can be configured to run against a different domain by setting the `DOMAIN` environment variable. This allows the config to be tested against another Fastly config before updating the production rubyforge.org config.
+
+## Adding new redirects
+
+We use the rubyforgery.org domain to test the Fastly config before making it live for rubyforge.org.
+
+- Add tests in fastly-config-test.rb
+- Add redirect config in match-project-redirects.vcl and match-subdomain-redirects.vcl
+- Manually apply the redirect config changes to the Fastly config for rubyforgery.org
+- Ensure all the tests pass
+
 ## Contributing
 
 The main thing we need help with is mapping old rubyforge.org URLs to their current location. If you can help with this then consider creating a pull request with relevant changes to the tests/fastly config, or creating an issue with the old and new URLs and we'll add the mapping to the config.
